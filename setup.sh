@@ -3,7 +3,7 @@
 # Setup Script for Debian 9, 10, and 11
 # https://github.com/Rockz1152/Debian
 
-function CheckOS() {
+function checkOS() {
     echo "Checking OS"
     if [[ -e /etc/debian_version ]]; then
         source /etc/os-release
@@ -22,14 +22,14 @@ function CheckOS() {
 # Check for root, otherwise re-run
 #[ `whoami` = root ] || { sudo "$0" "$@"; exit $?; }
 
-function CheckRoot() {
+function checkRoot() {
     if [ "${EUID}" -ne 0 ]; then
         echo "You need to run this script as root"
         exit 1
     fi
 }
 
-function InstallSoftware() {
+function installSoftware() {
     # Apt update and upgrade
     echo 'Running apt-update'
     apt-get -q update > /dev/null
@@ -64,7 +64,7 @@ function InstallSoftware() {
     done
 }
 
-function SSHmotd() {
+function sshMotd() {
     if [ -f /etc/pam.d/sshd ]; then
         echo 'Turning off SSH motd'
         sudo sed -i 's@.*session    optional     pam_motd.so  motd=/run/motd.dynamic@#session    optional     pam_motd.so  motd=/run/motd.dynamic@' /etc/pam.d/sshd
@@ -72,7 +72,7 @@ function SSHmotd() {
     fi
 }
 
-function ConfigVIM() {
+function configVIM() {
     echo 'Configuring Vim'
     # if [[ `cat /etc/debian_version 2>/dev/null | grep 11.` ]]; then
         # echo "source /usr/share/vim/vim82/defaults.vim" > /root/.vimrc
@@ -94,7 +94,7 @@ EOF
 }
 
 ## maybe try /etc/bashrc.local ??
-function ConfigBash() {
+function configBash() {
     echo 'Configuring Bash'
     \cp /etc/skel/.bashrc /root/.bashrc
 cat >> /root/.bashrc << EOF
@@ -117,7 +117,7 @@ EOF
     fi
 }
 
-function Movedotfiles() {
+function moveDotfiles() {
     for d in /home/* ;
     do
         \cp /root/.bashrc $d
@@ -128,23 +128,23 @@ function Movedotfiles() {
     done
 }
 
-function ReloadBash() {
+function reloadBash() {
     echo 'Reloading Bash'
     echo ''
     source ~/.bashrc
     # sudo -u $SUDO_USER sh -c "exec bash"
 }
 
-CheckOS
-CheckRoot
+checkOS
+checkRoot
 
-function Main() {
-    InstallSoftware
-    SSHmotd
-    ConfigVIM
-    ConfigBash
-    Movedotfiles
-    ReloadBash
+function main() {
+    installSoftware
+    sshMotd
+    configVIM
+    configBash
+    moveDotfiles
+    reloadBash
 }
 
 # Check if system was already provisioned
@@ -156,5 +156,5 @@ if [[ -e /root/.bashrc ]]; then
         * ) echo "Please answer yes or no.";;
     esac
 else
-    Main
+    main
 fi
