@@ -150,14 +150,12 @@ function main() {
 # Check if system was already provisioned
 # /etc/vim/vimrc.local
 if [[ -e /root/.bashrc ]]; then
-    while true; do
         read -p "Run setup again?" yn
         case $yn in
             [Yy]* ) Main; break;;
             [Nn]* ) exit;;
             * ) echo "Please answer yes or no.";;
         esac
-    done
 else
     main
 fi
