@@ -1,6 +1,15 @@
 # Debian
 Setup script for Debian 9, 10, and 11
 
+## Summary
+
+- Runs apt update
+- Installs base software
+- Turns off SSH MotD if installed
+- Sets up vim and bash
+- Installs guest tools if running a virtual machine
+
+## Usage
 ### Install curl
 ```
 sudo apt install -y curl
