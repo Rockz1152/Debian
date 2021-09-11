@@ -3,8 +3,8 @@
 # Setup Script for Debian 9, 10, and 11
 # https://github.com/Rockz1152/Debian
 
-function checkOS() {
-    # Check OS version
+function CheckOS() {
+    echo "Checking OS"
     if [[ -e /etc/debian_version ]]; then
         source /etc/os-release
         if [[ ${ID} == "debian" || ${ID} == "raspbian" ]]; then
@@ -22,7 +22,7 @@ function checkOS() {
 # Check for root, otherwise re-run
 #[ `whoami` = root ] || { sudo "$0" "$@"; exit $?; }
 
-function isRoot() {
+function CheckRoot() {
     if [ "${EUID}" -ne 0 ]; then
         echo "You need to run this script as root"
         exit 1
@@ -42,12 +42,12 @@ function InstallSoftware() {
 
     # Check for VMware
     if [ "$(systemd-detect-virt)" == "vmware" ]; then
-      packages=(${packages[@]} "open-vm-tools")
+        packages=(${packages[@]} "open-vm-tools")
     fi
 
     # Check for QEMU
     if [ "$(systemd-detect-virt)" == "qemu" ]; then
-      packages=(${packages[@]} "qemu-guest-agent")
+        packages=(${packages[@]} "qemu-guest-agent")
     fi
 
     # Install software
@@ -93,6 +93,7 @@ endif
 EOF
 }
 
+## maybe try /etc/bashrc.local ??
 function ConfigBash() {
     echo 'Configuring Bash'
     \cp /etc/skel/.bashrc /root/.bashrc
