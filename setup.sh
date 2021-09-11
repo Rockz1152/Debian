@@ -9,7 +9,7 @@ function checkOS() {
         source /etc/os-release
         if [[ ${ID} == "debian" || ${ID} == "raspbian" ]]; then
             if [[ ${VERSION_ID} -lt 9 ]]; then
-                echo "Your version of Debian (${VERSION_ID}) is not supported. Please use Debian 8 Jessie or later"
+                echo "Your version of Debian (${VERSION_ID}) is not supported. Please use Debian 9 Stretch or later"
                 exit 1
             fi
         fi
@@ -108,12 +108,12 @@ alias mv='mv -i'
 alias grep='grep --color=auto'
 EOF
 # Configure bash input, Debian 11+ only
-if [[ ${VERSION_ID} -ge 11 ]]; then
+    if [[ ${VERSION_ID} -ge 11 ]]; then
 cat > /root/.inputrc << EOF
 \$include /etc/inputrc
 set enable-bracketed-paste Off
 EOF
-fi
+    fi
 }
 
 function Movedotfiles() {
