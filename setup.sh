@@ -113,18 +113,16 @@ alias grep='grep --color=auto'
 EOF
 }
 
-# Configure bash input, Debian 11+ only
 function configInput() {
-    if [[ ${VERSION_ID} -ge 11 ]]; then
+# Configure bash input, Debian 11+ only
 cat > /root/.inputrc << EOF
 \$include /etc/inputrc
 set enable-bracketed-paste Off
 EOF
-        for d in /home/* ;
-        do
-            \cp /root/.inputrc "$d"
-        done
-    fi
+    for d in /home/* ;
+    do
+        \cp /root/.inputrc "$d"
+    done
 }
 
 function reloadBash() {
@@ -138,5 +136,7 @@ installSoftware
 sshMotd
 configVIM
 configBash
-configInput
+if [[ ${VERSION_ID} -ge 11 ]]; then
+    configInput
+fi
 reloadBash
