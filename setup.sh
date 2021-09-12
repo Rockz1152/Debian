@@ -137,25 +137,9 @@ function reloadBash() {
 
 checkOS
 checkRoot
-
-function main() {
-    installSoftware
-    sshMotd
-    configVIM
-    configBash
-    moveDotfiles
-    reloadBash
-}
-
-# Check if system was already provisioned
-# /etc/vim/vimrc.local
-if [[ -e /root/.bashrc ]]; then
-        read -p "Run setup again?" yn
-        case $yn in
-            [Yy]* ) Main; break;;
-            [Nn]* ) exit;;
-            * ) echo "Please answer yes or no.";;
-        esac
-else
-    main
-fi
+installSoftware
+sshMotd
+configVIM
+configBash
+moveDotfiles
+reloadBash
