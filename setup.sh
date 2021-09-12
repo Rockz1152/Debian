@@ -111,7 +111,10 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias grep='grep --color=auto'
 EOF
+}
+
 # Configure bash input, Debian 11+ only
+function configInput() {
     if [[ ${VERSION_ID} -ge 11 ]]; then
 cat > /root/.inputrc << EOF
 \$include /etc/inputrc
@@ -135,4 +138,5 @@ installSoftware
 sshMotd
 configVIM
 configBash
+configInput
 reloadBash
