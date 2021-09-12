@@ -86,7 +86,6 @@ EOF
 
 function configBash() {
     echo 'Configuring Bash'
-    # \cp /etc/skel/.bashrc /root/.bashrc
 cat > /etc/profile.d/bashrc.sh << EOF
 #!/bin/sh
 alias reboot='/sbin/reboot'
@@ -114,7 +113,6 @@ EOF
 function reloadBash() {
     echo 'Reloading Bash'
     echo ''
-    sudo -u $(whoami) bash -c "exec bash --login"
 }
 
 checkOS
