@@ -82,7 +82,7 @@ function configVIM() {
         # echo "source /usr/share/vim/vim80/defaults.vim" > /root/.vimrc
     # fi
 cat > /etc/vim/vimrc.local << EOF
-source $VIMRUNTIME/defaults.vim
+source \$VIMRUNTIME/defaults.vim
 let skip_defaults_vim = 1
 
 colorscheme desert
@@ -119,7 +119,7 @@ EOF
 }
 
 function moveDotfiles() {
-    echo "Copying"
+    echo "Moving configs into place"
     for d in /home/* ;
     do
         \cp /root/.bashrc $d
@@ -133,7 +133,7 @@ function moveDotfiles() {
 function reloadBash() {
     echo 'Reloading Bash'
     echo ''
-    sudo -u $(whoami) sh -c "exec bash"
+    #sudo -u $(whoami) sh -c "exec bash"
 }
 
 checkOS
