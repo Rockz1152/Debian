@@ -17,5 +17,5 @@ sudo apt install -y curl
 
 ### Run the script
 ```
-curl -sL https://raw.githubusercontent.com/Rockz1152/Debian/main/setup.sh | sudo bash && exec bash
+curl -sL https://raw.githubusercontent.com/Rockz1152/Debian/main/setup.sh | sudo bash
 ```
