@@ -35,7 +35,22 @@ function installSoftware() {
 
     # Software to install
     echo 'Installing software'
-    declare -a packages=('curl' 'nano' 'vim' 'htop' 'ncdu' 'wget' 'zip' 'unzip' 'p7zip-full' 'screen' 'less' 'man-db' 'neofetch')
+    # declare -a packages=('curl' 'nano' 'vim' 'htop' 'ncdu' 'wget' 'zip' 'unzip' 'p7zip-full' 'screen' 'less' 'man-db' 'neofetch')
+    packages=(
+    'curl'
+    'nano'
+    'vim'
+    'htop'
+    'ncdu'
+    'wget'
+    'zip'
+    'unzip'
+    'p7zip-full'
+    'screen'
+    'less'
+    'man-db'
+    'neofetch'
+    )
 
     # Check for VMware
     if [ "$(systemd-detect-virt)" == "vmware" ]; then
@@ -51,10 +66,10 @@ function installSoftware() {
     for i in "${packages[@]}"
     do
         echo '-'$i
-        if [[ `dpkg-query -W -f='${Status}' $i 2>/dev/null | grep -c "ok installed"` == 0 ]]; then
+        if [[ $(dpkg-query -W -f='${Status}' $i 2>/dev/null | grep -c "ok installed") == 0 ]]; then
             apt-get -q -y install $i > /dev/null 2>/dev/null
             # Verify install
-            if [[ `dpkg-query -W -f='${Status}' $i 2>/dev/null | grep -c "ok installed"` == 0 ]]; then
+            if [[ $(dpkg-query -W -f='${Status}' $i 2>/dev/null | grep -c "ok installed") == 0 ]]; then
                 echo '!!!' $i 'failed to install'
             fi
         fi
