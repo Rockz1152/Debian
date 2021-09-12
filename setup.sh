@@ -35,7 +35,6 @@ function installSoftware() {
 
     # Software to install
     echo 'Installing software'
-    # declare -a packages=('curl' 'nano' 'vim' 'htop' 'ncdu' 'wget' 'zip' 'unzip' 'p7zip-full' 'screen' 'less' 'man-db' 'neofetch')
     packages=(
     'curl'
     'nano'
@@ -54,23 +53,23 @@ function installSoftware() {
 
     # Check for VMware
     if [ "$(systemd-detect-virt)" == "vmware" ]; then
-        packages=(${packages[@]} "open-vm-tools")
+        packages=( "${packages[@]} 'open-vm-tools'" )
     fi
 
     # Check for QEMU
     if [ "$(systemd-detect-virt)" == "qemu" ]; then
-        packages=(${packages[@]} "qemu-guest-agent")
+        packages=( "${packages[@]} 'qemu-guest-agent'" )
     fi
 
     # Install software
     for i in "${packages[@]}"
     do
-        echo '-'$i
-        if [[ $(dpkg-query -W -f='${Status}' $i 2>/dev/null | grep -c "ok installed") == 0 ]]; then
-            apt-get -q -y install $i > /dev/null 2>/dev/null
+        echo "-$i"
+        if [[ $(dpkg-query -W -f='${Status}' "$i" 2>/dev/null | grep -c "ok installed") == 0 ]]; then
+            apt-get -q -y install "$i" > /dev/null 2>/dev/null
             # Verify install
-            if [[ $(dpkg-query -W -f='${Status}' $i 2>/dev/null | grep -c "ok installed") == 0 ]]; then
-                echo '!!!' $i 'failed to install'
+            if [[ $(dpkg-query -W -f='${Status}' "$i" 2>/dev/null | grep -c "ok installed") == 0 ]]; then
+                echo "!!! $i failed to install"
             fi
         fi
     done
@@ -120,7 +119,7 @@ set enable-bracketed-paste Off
 EOF
         for d in /home/* ;
         do
-            \cp /root/.inputrc $d
+            \cp /root/.inputrc "$d"
         done
     fi
 }
