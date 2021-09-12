@@ -53,12 +53,12 @@ function installSoftware() {
 
     # Check for VMware
     if [ "$(systemd-detect-virt)" == "vmware" ]; then
-        packages=( "${packages[@]} 'open-vm-tools'" )
+        packages=(${packages[@]} "open-vm-tools")
     fi
 
     # Check for QEMU
     if [ "$(systemd-detect-virt)" == "qemu" ]; then
-        packages=( "${packages[@]} 'qemu-guest-agent'" )
+        packages=(${packages[@]} "qemu-guest-agent")
     fi
 
     # Install software
