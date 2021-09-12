@@ -74,13 +74,6 @@ function sshMotd() {
 
 function configVIM() {
     echo 'Configuring Vim'
-    # if [[ `cat /etc/debian_version 2>/dev/null | grep 11.` ]]; then
-        # echo "source /usr/share/vim/vim82/defaults.vim" > /root/.vimrc
-    # elif [[ `cat /etc/debian_version 2>/dev/null | grep 10.` ]]; then
-        # echo "source /usr/share/vim/vim81/defaults.vim" > /root/.vimrc
-    # elif [[ `cat /etc/debian_version 2>/dev/null | grep 9.` ]]; then
-        # echo "source /usr/share/vim/vim80/defaults.vim" > /root/.vimrc
-    # fi
 cat > /etc/vim/vimrc.local << EOF
 source \$VIMRUNTIME/defaults.vim
 let skip_defaults_vim = 1
@@ -94,12 +87,11 @@ endif
 EOF
 }
 
-## maybe try /etc/bashrc.local ??
 function configBash() {
     echo 'Configuring Bash'
-    \cp /etc/skel/.bashrc /root/.bashrc
-cat >> /root/.bashrc << EOF
-
+    # \cp /etc/skel/.bashrc /root/.bashrc
+cat > /etc/profile.d/bashrc.sh << EOF
+#!/bin/sh
 alias reboot='/sbin/reboot'
 alias shutdown='/sbin/shutdown'
 alias ll='ls -l'
@@ -119,11 +111,9 @@ EOF
 }
 
 function moveDotfiles() {
-    echo "Moving configs into place"
+    echo "Moving any configs into place"
     for d in /home/* ;
     do
-        \cp /root/.bashrc $d
-        # \cp /root/.vimrc $d
         if [ -f /root/.inputrc ]; then
             \cp /root/.inputrc $d
         fi
