@@ -114,7 +114,7 @@ EOF
 function reloadBash() {
     echo 'Reloading Bash'
     echo ''
-    sudo -u $(whoami) bash -c "exec "$BASH" --login"
+    exec "$BASH" --login
 }
 
 checkOS
