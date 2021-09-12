@@ -19,9 +19,6 @@ function checkOS() {
     fi
 }
 
-# Check for root, otherwise re-run
-#[ `whoami` = root ] || { sudo "$0" "$@"; exit $?; }
-
 function checkRoot() {
     if [ "${EUID}" -ne 0 ]; then
         echo "You need to run this script as root"
@@ -107,23 +104,17 @@ cat > /root/.inputrc << EOF
 \$include /etc/inputrc
 set enable-bracketed-paste Off
 EOF
-    fi
-}
-
-function moveDotfiles() {
-    echo "Moving any configs into place"
-    for d in /home/* ;
-    do
-        if [ -f /root/.inputrc ]; then
+        for d in /home/* ;
+        do
             \cp /root/.inputrc $d
-        fi
-    done
+        done
+    fi
 }
 
 function reloadBash() {
     echo 'Reloading Bash'
     echo ''
-    #sudo -u $(whoami) sh -c "exec bash"
+    sudo -u $(whoami) sh -c "source /etc/profile"
 }
 
 checkOS
@@ -132,5 +123,4 @@ installSoftware
 sshMotd
 configVIM
 configBash
-moveDotfiles
 reloadBash
