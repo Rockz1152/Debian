@@ -100,8 +100,7 @@ EOF
 
 function configBash() {
     echo 'Configuring Bash'
-cat > /etc/profile.d/bashrc.sh << EOF
-#!/bin/sh
+cat > /root/.bash_aliases << EOF
 alias reboot='/sbin/reboot'
 alias shutdown='/sbin/shutdown'
 alias ll='ls -l'
@@ -111,6 +110,10 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias grep='grep --color=auto'
 EOF
+    for d in /home/* ;
+    do
+        \cp /root/.bash_aliases "$d"
+    done
 }
 
 function configInput() {
