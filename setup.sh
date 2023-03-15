@@ -79,8 +79,7 @@ function installSoftware() {
 function sshMotd() {
     if [ -f /etc/pam.d/sshd ]; then
         echo 'Turning off SSH motd'
-        sudo sed -i 's@.*session    optional     pam_motd.so  motd=/run/motd.dynamic@#session    optional     pam_motd.so  motd=/run/motd.dynamic@' /etc/pam.d/sshd
-        sudo sed -i 's@.*session    optional     pam_motd.so noupdate@#session    optional     pam_motd.so noupdate@' /etc/pam.d/sshd
+        sudo sed -i '/^[^#].*pam_motd\.so/s/^/#/' /etc/pam.d/sshd
     fi
 }
 
