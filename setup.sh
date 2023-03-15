@@ -2,6 +2,7 @@
 
 # Setup Script for Debian 9, 10, and 11
 # https://github.com/Rockz1152/Debian
+# curl -sL https://raw.githubusercontent.com/Rockz1152/Debian/main/setup.sh | sudo bash && exec bash
 
 function checkOS() {
     echo "Checking OS"
@@ -57,7 +58,7 @@ function installSoftware() {
     fi
 
     # Check for QEMU
-    if [ "$(systemd-detect-virt)" == "qemu" ]; then
+    if [[ "$(systemd-detect-virt)" == "qemu" || "kvm" ]]; then
         packages=(${packages[@]} "qemu-guest-agent")
     fi
 
