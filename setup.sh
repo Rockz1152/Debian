@@ -10,12 +10,12 @@ function checkOS() {
         source /etc/os-release
         if [[ ${ID} == "debian" || ${ID} == "raspbian" ]]; then
             if [[ ${VERSION_ID} -lt 9 ]]; then
-                echo "Your version of Debian (${VERSION_ID}) is not supported. Please use Debian 9 Stretch or later"
+                echo "Your version of Debian (${VERSION_ID}) is not supported. Please use Debian 9 Stretch or later."
                 exit 1
             fi
         fi
     else
-        echo "Looks like you aren't running this installer on a supported Debian install"
+        echo "Looks like you aren't running this installer on a supported Debian install."
         exit 1
     fi
 }
@@ -100,7 +100,7 @@ EOF
 
 function configBash() {
     echo 'Configuring Bash'
-cat > /root/.bash_aliases << EOF
+cat > /etc/profile.d/00-aliases.sh << EOF
 alias reboot='/sbin/reboot'
 alias shutdown='/sbin/shutdown'
 alias ll='ls -l'
@@ -110,10 +110,6 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias grep='grep --color=auto'
 EOF
-    for d in /home/* ;
-    do
-        \cp /root/.bash_aliases "$d"
-    done
 }
 
 function configInput() {
