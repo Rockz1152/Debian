@@ -1,5 +1,5 @@
 # Debian
-Setup script for Debian 9, 10, and 11
+Setup script for Debian 9, 10, 11, and 12
 
 ## Summary
 
