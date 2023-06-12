@@ -50,6 +50,7 @@ function installSoftware() {
     'less'
     'man-db'
     'neofetch'
+    'zstd'
     )
 
     # Check for VMware
