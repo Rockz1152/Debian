@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Setup Script for Debian 9, 10, and 11
+# Setup Script for Debian 9-12
 # https://github.com/Rockz1152/Debian
 # curl -sL https://raw.githubusercontent.com/Rockz1152/Debian/main/setup.sh | sudo bash && exec bash
 
@@ -15,7 +15,7 @@ function checkOS() {
             fi
         fi
     else
-        echo "Looks like you aren't running this installer on a supported Debian install."
+        echo "Looks like you are running this script on an unsupported system."
         exit 1
     fi
 }
