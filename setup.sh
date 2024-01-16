@@ -123,6 +123,7 @@ EOF
     do
         \cp /root/.inputrc "$d"
     done
+\cp /root/.inputrc /etc/skel/.inputrc
 }
 
 function reloadBash() {
