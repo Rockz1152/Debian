@@ -1,13 +1,15 @@
 #!/bin/bash
 
-# Setup Script for Debian 9-12
+# Setup Script for Debian 9-13
 # https://github.com/Rockz1152/Debian
 # curl -sL https://raw.githubusercontent.com/Rockz1152/Debian/main/setup.sh | sudo bash && exec bash
+
+# Source our OS related variables
+source /etc/os-release
 
 function checkOS() {
     echo "Checking OS"
     if [[ -e /etc/debian_version ]]; then
-        source /etc/os-release
         if [[ ${ID} == "debian" || ${ID} == "raspbian" ]]; then
             if [[ ${VERSION_ID} -lt 9 ]]; then
                 echo "Your version of Debian (${VERSION_ID}) is not supported. Please use Debian 9 Stretch or later."
@@ -49,9 +51,15 @@ function installSoftware() {
     'screen'
     'less'
     'man-db'
-    'neofetch'
     'zstd'
     )
+
+    # Neofetch/Fastfetch
+    if [[ ${VERSION_ID} -lt 13 ]]; then
+        packages+=('neofetch')
+    else
+        packages+=('fastfetch')
+    fi
 
     # Check for VMware
     if [ $(systemd-detect-virt) == "vmware" ]; then
@@ -75,6 +83,29 @@ function installSoftware() {
             fi
         fi
     done
+
+    # Swap Neofetch for Fastfetch
+    if [[ ${VERSION_ID} -ge 13 ]]; then
+
+        # Neofetch install check
+        if dpkg -s neofetch >/dev/null 2>&1; then
+            echo 'Patching Neofetch to Fastfetch'
+            # Remove Neofetch and dependencies
+            apt-get autoremove -y --purge neofetch > /dev/null 2>/dev/null
+        fi
+
+        # Make sure Fastfetch is installed
+        if ! dpkg -s fastfetch >/dev/null 2>&1; then
+            apt-get -q -y install "$i" > /dev/null 2>/dev/null
+        fi
+
+        # Link Neofetch muscle memory to Fastfetch
+        # Checks if symlink exists and creates if not
+        if ! [ -L /usr/bin/neofetch ]; then
+            ln -s /usr/bin/fastfetch /usr/bin/neofetch
+        fi
+
+    fi #End Neofetch swap
 }
 
 function sshMotd() {
