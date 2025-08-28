@@ -85,6 +85,7 @@ function installSoftware() {
     done
 
     # Swap Neofetch for Fastfetch
+    # Verify with: ls -l /usr/bin/neofetch
     if [[ ${VERSION_ID} -ge 13 ]]; then
 
         # Neofetch install check
