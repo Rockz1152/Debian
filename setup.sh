@@ -97,7 +97,7 @@ function installSoftware() {
 
         # Make sure Fastfetch is installed
         if ! dpkg -s fastfetch >/dev/null 2>&1; then
-            apt-get -q -y install "$i" > /dev/null 2>/dev/null
+            apt-get -q -y install fastfetch > /dev/null 2>/dev/null
         fi
 
         # Link Neofetch muscle memory to Fastfetch
