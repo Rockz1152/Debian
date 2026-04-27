@@ -5,7 +5,11 @@
 # curl -sL https://raw.githubusercontent.com/Rockz1152/Debian/main/setup.sh | sudo bash && exec bash
 
 # Source our OS related variables
-source /etc/os-release
+if [ -r /etc/os-release ]; then
+    source /etc/os-release
+else
+    echo "Unknown configuration found, exiting..."; exit 1;
+fi
 
 function checkOS() {
     echo "Checking OS"
