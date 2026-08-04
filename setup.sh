@@ -138,6 +138,7 @@ EOF
 function configBash() {
     echo 'Configuring Bash'
 cat > /etc/profile.d/00-aliases.sh << EOF
+export NCURSES_NO_UTF8_ACS=1
 alias reboot='/sbin/reboot'
 alias shutdown='/sbin/shutdown'
 alias ll='ls -l'
