@@ -2,7 +2,7 @@
 
 # Setup Script for Debian 9-13
 # https://github.com/Rockz1152/Debian
-# curl -sL https://raw.githubusercontent.com/Rockz1152/Debian/main/setup.sh | sudo bash && exec bash
+# curl -fsSL https://raw.githubusercontent.com/Rockz1152/Debian/main/setup.sh | sudo bash && exec bash
 
 # Source our OS related variables
 if [ -r /etc/os-release ]; then
